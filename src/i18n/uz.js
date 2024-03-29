@@ -22,7 +22,7 @@ export default {
   sign: {
     t1: "Salom! Ятѣ, qiymat almashish tizimiga xush kelibsiz. Men sizga allaqachon noyob mnemonik iborani o'ylab topdim-uni o'zingizni tasdiqlash uchun zarur bo'lgan raqamli imzoingiz deb hisoblang. U menda saqlanmaydi va shuning uchun uni tiklash mumkin emas. Endi siz uni faqat bilasiz, shuning uchun uni qog'ozga ehtiyotkorlik bilan yozing yoki hech bo'lmaganda uni bosib nusxa ko'chiring va biron joyga qo'ying.",
     t2: "Va men va boshqa ishtirokchilar bilan o'zaro aloqada bo'lish uchun siz allaqachon raqamli imzodan to'g'ridan-to'g'ri chiqib ketgan o'zingizning shaxsiy manzilingizga egasiz",
-    t3: 'Faqat ishonchli narsalarni kiritish va eslab qolish qoladi',
+    t3: "Siz qilishingiz kerak bo'lgan yagona narsa - kuchli parolni kiritish va eslab qolish",
     copy: "Nusxa ko'chirilgan ibora",
     pwd: "Parol ko'chirildi",
     protect: 'Imzoni himoya qilish uchun',
