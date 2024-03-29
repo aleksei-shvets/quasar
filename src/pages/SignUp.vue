@@ -158,13 +158,12 @@ const copyPwd = (txt) => {
         <q-timeline-entry class="text-justify q-pr-md" color="primary" subtitle="Подключайся" :body="$t('sign.t1')" />
         <q-item class="column">
           <q-card class="info-text" @click="copySign(mn)">
-            <q-card-section
-              class="q-pa-sm public-key info-text fit row wrap justify-start items-center content-start">
+            <q-card-section class="q-pa-sm public-key info-text fit row wrap justify-start items-center content-start">
               <div class="col justify-start">{{ mn }}</div>
               <q-icon :name="!isCopedSeed ? 'content_copy' : 'done'" class="cursor-pointer self-start offset-1" />
             </q-card-section>
           </q-card>
-          <div class="hint q-mb-md">Твоя мнемоническая фраза</div>
+          <div class="hint q-mb-md">{{ $t('sign.mnemonic') }}</div>
         </q-item>
 
         <q-timeline-entry class="text-justify q-pr-md" color="primary" :body="$t('sign.t2')" />
@@ -174,7 +173,7 @@ const copyPwd = (txt) => {
             <div class="col justify-start">{{ pk }}</div>
             <q-icon :name="!isCopedPwd ? 'content_copy' : 'done'" class="cursor-pointer self-start offset-1" />
           </q-card>
-          <div class="hint q-mb-md">Твой публичный адрес</div>
+          <div class="hint q-mb-md">{{ $t('sign.publicKey') }}</div>
         </q-item>
 
         <q-timeline-entry class="text-justify q-pr-md" color="primary" :body="$t('sign.t3')" />
@@ -184,7 +183,8 @@ const copyPwd = (txt) => {
             :rules="[
               val => !!val || $t('sign.pwdMust'),
               val => val.length > 6 || $t('sign.pwdMore'),
-            ]">
+            ]"
+          >
             <template v-slot:append>
               <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
             </template>
@@ -203,7 +203,7 @@ const copyPwd = (txt) => {
 .public-key {
   overflow-wrap: anywhere;
   text-align: start;
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .hint {
