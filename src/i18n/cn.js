@@ -33,7 +33,9 @@ export default {
     pwd4: '非常强的密码',
     pwdMust: '输入密码比较好',
     pwdMore: '最好输入超过6个字符',
-    know: 'I remember my phrase!'
+    know: '我记得我的那句话！',
+    mnemonic: '您的记忆短语',
+    publicKey: '您的公共地址'
   },
   enter: {
     remember: '记住你的密码',

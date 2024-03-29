@@ -33,7 +33,9 @@ export default {
     pwd4: 'Very strong password',
     pwdMust: "It's better to enter the password",
     pwdMore: "It's better to enter more than 6 characters",
-    know: 'I remember my phrase!'
+    know: 'I remember my phrase!',
+    mnemonic: 'Your mnemonic phrase',
+    publicKey: 'Your public address'
   },
   enter: {
     remember: 'Remember your password',

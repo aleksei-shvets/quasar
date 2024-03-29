@@ -33,7 +33,9 @@ export default {
     pwd4: 'Juda ishonchli parol',
     pwdMust: 'Parolni yaxshiroq kiriting!',
     pwdMore: '6 dan ortiq belgilarni kiritish yaxshiroqdir',
-    know: "Men o'z iboramni eslayman!"
+    know: "Men o'z iboramni eslayman!",
+    mnemonic: 'Sizning mnemonik iborangiz',
+    publicKey: 'Sizning umumiy manzilingiz'
   },
   enter: {
     remember: 'Parolingizni eslang',
