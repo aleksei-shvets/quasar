@@ -13,6 +13,24 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+button,
+input {
+  font-family: "Onest", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+.info-text {
+  font-family: "Onest", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+}
 
 h2 {
   font-family: 'Roboto Slab', serif;
@@ -31,7 +49,7 @@ p {
 
 a {
   color: #ac5de7;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 p,
