@@ -65,6 +65,10 @@ const mn = ref('')
 let seed = ''
 let keys = ''
 
+const goBack = () => {
+  router.push('/')
+}
+
 const gen = (l) => {
   let wordlist
   // const wordlist = l === 'ru' ? russian : english
@@ -137,41 +141,88 @@ const copyPwd = (txt) => {
 
 </script>
 
-<style>
-.public-key {
-  overflow-wrap: anywhere;
-}
-</style>
-
 <template>
-  <q-page class="flex flex-center">
-    <div class="col-auto q-pa-sm text-center" v-if="!user.seed">
-      <p class="text-justify text-body1">{{ $t("sign.t1") }}</p>
-      <!--TODO: copy-->
-      <p><q-card class="text-h4" @click="copySign(mn)"><q-card-section>{{ mn }}
-            <q-icon :name="!isCopedSeed ? 'content_copy' : 'done'" class="cursor-pointer" />
-          </q-card-section></q-card></p>
-      <p class="text-justify text-body1">{{ $t("sign.t2") }}:</p>
-      <p>
-        <q-card class="inline-block q-pa-xs text-h4 public-key" @click="copyPwd(pk)">{{ pk }}
-          <q-icon :name="!isCopedPwd ? 'content_copy' : 'done'" class="cursor-pointer" />
-        </q-card>
-      </p>
-      <p class="text-left text-body1">{{ $t("sign.t3") }}</p>
-      <q-input ref="pwdRef" v-model="pwd" filled counter :type="isPwd ? 'password' : 'text'"
-        :placeholder="$t('characters')" :hint="hint ? hint : $t('sign.protect')" :label="$t('password')" lazy-rules
-        :rules="[
-      val => !!val || $t('sign.pwdMust'),
-      val => val.length > 6 || $t('sign.pwdMore'),
-    ]">
-        <template v-slot:append>
-          <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
-        </template>
-      </q-input>
-      <div class="q-mt-md"><q-btn push :disable="disabled" color="primary" size="xl" @click="signup"
-          :label="$t('next')" />
+  <q-page class="flex flex-center q-pa-md" v-if="!user.seed">
+    <div class="q-mb-xl">
+      <q-item class="flex fit row wrap justify-between items-center content-center">
+        <q-item v-ripple style="width: 70px; height: 70px;" class="row q-pa-md justify-end items-center">
+          <q-avatar clickable size="70px" icon="arrow_back" @click="goBack" />
+        </q-item>
+        <q-chip size="md">
+          <q-avatar icon="login" color="accent" text-color="white" />
+          <router-link to="remember">{{ $t("sign.know") }}</router-link>
+        </q-chip>
+      </q-item>
+      <q-timeline color="secondary">
+
+        <q-timeline-entry class="text-justify q-pr-md" color="primary" subtitle="Подключайся" :body="$t('sign.t1')" />
+        <q-item class="column">
+          <q-card class="info-text" @click="copySign(mn)">
+            <q-card-section class="q-pa-sm public-key info-text fit row wrap justify-start items-center content-start">
+              <div class="col justify-start">{{ mn }}</div>
+              <q-icon :name="!isCopedSeed ? 'content_copy' : 'done'" class="cursor-pointer self-start offset-1" />
+            </q-card-section>
+          </q-card>
+          <div class="hint q-mb-md">{{ $t('sign.mnemonic') }}</div>
+        </q-item>
+
+        <q-timeline-entry class="text-justify q-pr-md" color="primary" :body="$t('sign.t2')" />
+        <q-item class="column">
+          <q-card class="q-pa-sm public-key info-text fit row wrap justify-start items-center content-start"
+            @click="copyPwd(pk)">
+            <div class="col justify-start">{{ pk }}</div>
+            <q-icon :name="!isCopedPwd ? 'content_copy' : 'done'" class="cursor-pointer self-start offset-1" />
+          </q-card>
+          <div class="hint q-mb-md">{{ $t('sign.publicKey') }}</div>
+        </q-item>
+
+        <q-timeline-entry class="text-justify q-pr-md" color="primary" :body="$t('sign.t3')" />
+        <q-item class="column q-mb-md">
+          <q-input class="q-mb-md" ref="pwdRef" v-model="pwd" filled counter :type="isPwd ? 'password' : 'text'"
+            :placeholder="$t('characters')" :hint="hint ? hint : $t('sign.protect')" :label="$t('password')" lazy-rules
+            :rules="[
+              val => !!val || $t('sign.pwdMust'),
+              val => val.length > 6 || $t('sign.pwdMore'),
+            ]"
+          >
+            <template v-slot:append>
+              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
+            </template>
+          </q-input>
+        </q-item>
+      </q-timeline>
+      <div class="text-center">
+        <q-btn push :disable="disabled" color="primary" size="md" @click="signup" :label="$t('next')" />
       </div>
-      <p class="text-subtitle1 q-mt-sm"><router-link to="remember">{{ $t("sign.know") }}</router-link></p>
     </div>
+
   </q-page>
 </template>
+
+<style scoped>
+.public-key {
+  overflow-wrap: anywhere;
+  text-align: start;
+  background-color: #f2f2f2;
+}
+
+.hint {
+  font-size: 12px;
+  min-height: 20px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 8px 12px 0;
+  backface-visibility: hidden;
+  text-align: start;
+}
+
+.head-p {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+p {
+  font-weight: 300;
+  font-size: 14px;
+}
+</style>
