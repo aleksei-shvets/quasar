@@ -43,7 +43,7 @@ const clear = () => {
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+        <q-btn v-if="user.crypt" flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
 
@@ -55,8 +55,32 @@ const clear = () => {
         <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
     </q-header>
-
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+    <q-footer elevated="" v-if="!user.sk.length > 0">
+      <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
+        <q-item clickable tag="a" href="https://github.com/yatledger">
+          <q-item-section avatar><q-icon name="code" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.code') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.codeDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/help" clickable tag="span">
+          <q-item-section avatar><q-icon name="help" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.help') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.helpDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item to="/topUsers" clickable tag="span">
+          <q-item-section avatar><q-icon name="emoji_events" /></q-item-section>
+          <q-item-section>
+            <q-item-label>{{ $t('menu.topUsers') }}</q-item-label>
+            <q-item-label caption>{{ $t('menu.topUsersDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-toolbar>
+    </q-footer>
+    <q-drawer v-if="user.crypt" v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header>{{ $t('menu.title') }}:</q-item-label>
         <q-item clickable tag="a" to="/">
@@ -125,6 +149,7 @@ const clear = () => {
     <q-page-container>
       <router-view />
     </q-page-container>
+
     <q-footer elevated="" v-if="user.sk.length > 0">
       <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
         <q-btn class="custom-button" round size="1rem" icon="account_box" to="/friends"></q-btn>
