@@ -340,6 +340,7 @@ h1 {
 @media (orientation: landscape) {
   .logo1 {
     height: 50vh;
+    opacity: 0.75;
   }
 }
 

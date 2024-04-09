@@ -45,37 +45,46 @@ const clear = () => {
       <q-toolbar>
         <q-btn v-if="user.crypt" flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title>{{ $t('title') }}</q-toolbar-title>
+        <q-toolbar-title>{{ $t('title') }}
+
+        </q-toolbar-title>
 
         <q-btn icon="login" v-if="user.crypt && user.sk.length === 0" @click="enter = true" color="secondary"></q-btn>
         <q-btn icon="logout" class="q-ml-sm" v-if="user.sk.length > 0" @click="exit" color="secondary"></q-btn>
         <!--TODO: mode in db-->
-        <q-toggle v-model="dark" color="black" @click="darkToggle" />
+        <q-toggle v-if="user.crypt" v-model="dark" color="black" @click="darkToggle" />
         <!--TODO: locale in db-->
         <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
     </q-header>
-    <q-footer elevated="" v-if="!user.sk.length > 0">
+    <q-footer v-if="!user.sk.length > 0">
       <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
-        <q-item clickable tag="a" href="https://github.com/yatledger">
+        <q-item class="git" lickable tag="a" href="https://github.com/yatledger">
           <q-item-section avatar><q-icon name="code" /></q-item-section>
-          <q-item-section>
+          <q-item-section class="gitBtn">
             <q-item-label>{{ $t('menu.code') }}</q-item-label>
-            <q-item-label caption>{{ $t('menu.codeDesc') }}</q-item-label>
+            <q-item-label>{{ $t('menu.codeDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/help" clickable tag="span">
           <q-item-section avatar><q-icon name="help" /></q-item-section>
-          <q-item-section>
+          <q-item-section class="helpBtn">
             <q-item-label>{{ $t('menu.help') }}</q-item-label>
-            <q-item-label caption>{{ $t('menu.helpDesc') }}</q-item-label>
+            <q-item-label>{{ $t('menu.helpDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
         <q-item to="/topUsers" clickable tag="span">
           <q-item-section avatar><q-icon name="emoji_events" /></q-item-section>
-          <q-item-section>
+          <q-item-section class="topUsersBtn">
             <q-item-label>{{ $t('menu.topUsers') }}</q-item-label>
-            <q-item-label caption>{{ $t('menu.topUsersDesc') }}</q-item-label>
+            <q-item-label>{{ $t('menu.topUsersDesc') }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" to="/">
+          <q-item-section class="homeBtn" avatar><q-icon name="home" /></q-item-section>
+          <q-item-section class="homeText">
+            <q-item-label>{{ $t('menu.home') }}</q-item-label>
+            <q-item-label>{{ $t('menu.homeDesc') }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-toolbar>
@@ -164,6 +173,37 @@ const clear = () => {
 </template>
 
 <style>
+@media (orientation: portrait) {
+  .git {
+    margin-left: 30px;
+  }
+
+  .gitBtn {
+
+    display: none;
+  }
+
+  .helpBtn {
+    display: none;
+  }
+
+  .topUsersBtn {
+    display: none;
+  }
+
+  .homeText {
+    display: none;
+  }
+}
+
+.homeBtn {
+  color: white;
+}
+
+.homeText {
+  color: white;
+}
+
 .custom-button {
   background-color: #DDDDEB;
   color: #212235;
