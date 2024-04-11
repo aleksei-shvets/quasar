@@ -80,9 +80,6 @@ export default {
 </template>
 
 <style scoped>
-.qr {
-    margin: auto;
-}
 .scan-adress__card {
   width: 336px;
   padding: 11px 20px;
