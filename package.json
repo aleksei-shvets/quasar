@@ -30,6 +30,7 @@
     "lodash.clonedeep": "^4.5.0",
     "pinia": "^2.1.7",
     "qrcode": "^1.5.3",
+    "qrcode.vue": "^3.4.1",
     "quasar": "^2.14.3",
     "tweetnacl": "^1.0.3",
     "vue": "^3.4.15",
