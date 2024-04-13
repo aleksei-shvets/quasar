@@ -16,6 +16,7 @@ const routes: RouteRecordRaw[] = [
       { path: 'friends', component: () => import('src/pages/user/UserFriends.vue') },
       { path: 'tx', component: () => import('src/pages/user/UserTx.vue') },
       { path: 'profile', component: () => import('src/pages/user/UserProfile.vue') },
+      { path: 'generateQr', component: () => import('src/pages/generateQr/GenerateQr.vue') },
       { path: 'receive', component: () => import('src/pages/user/UserReceive.vue') },
       { path: 'crypto', component: () => import('src/pages/user/UserCrypto.vue') },
       { path: 'ask', component: () => import('src/pages/landing/AskPage.vue') },
