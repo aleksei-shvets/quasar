@@ -242,6 +242,13 @@ const trackFunctionOptions = [
   { text: 'bounding box', value: paintBoundingBox }
 ]
 const trackFunctionSelected = ref(trackFunctionOptions[1])
+
+/* const getLabelQFile = () => {
+  if (scanImg.value) {
+    return null
+  }
+  return '+'
+} */
 </script>
 
 <style scoped>
@@ -284,8 +291,11 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
         </q-section>
       </div>
     </q-section>
-    <q-file filled bottom-slots v-model="scanImg" label="Label" counter max-files="1"
-      style="max-width: 300px; margin: 0 auto;">
+    <q-file filled bottom-slots v-model="scanImg" counter max-files="1" style="max-width: 300px; margin: 0 auto;">
+
+      <template v-slot:prepend>
+        <q-icon v-if="!scanImg" name="add_photo_alternate" class="cursor-pointer" />
+      </template>
 
       <template v-slot:hint>
         Сканировать фото
@@ -299,6 +309,7 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
         <q-icon size="lg" name="qr_code_scanner" />
       </template>
     </q-file>
+    <div v-if="scanImg">{{ JSON.stringify(scanImg) }}</div>
     <div v-if="error === 'NotAllowedError'" class="row q-pa-md q-flex justify-around items-center"
       style="max-width: 90%; margin: 0 auto;">
       <q-chip class="q-mb-md" clickable @click="reloadPage" size="md">
