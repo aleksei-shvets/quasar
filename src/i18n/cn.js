@@ -22,7 +22,7 @@ export default {
   sign: {
     t1: '嗨！ 欢迎来到Yat，价值交换系统。 我已经为你想出了一个独特的助记符短语--把它当作你的数字签名，这是识别你自己所必需的。 我没有存储它，因此无法恢复。 现在只有你知道它，所以在纸上仔细写下来，或者至少通过点击它并将其放在某个地方来复制它。',
     t2: '并与我和其他参与者互动，你已经有了你的公共地址，这是直接从数字签名转移',
-    t3: '它仍然只是进入并记住一个强大的',
+    t3: '剩下的工作就是输入并记住一个强大的密码',
     copy: '短语 短语被复制',
     pwd: '密码已复制',
     protect: '保护签名',
@@ -33,7 +33,9 @@ export default {
     pwd4: '非常强的密码',
     pwdMust: '输入密码比较好',
     pwdMore: '最好输入超过6个字符',
-    know: 'I remember my phrase!'
+    know: '我记得我的那句话！',
+    mnemonic: '您的记忆短语',
+    publicKey: '您的公共地址'
   },
   enter: {
     remember: '记住你的密码',
@@ -102,5 +104,11 @@ export default {
   buttons: {
     requestCameraAccess: '请求访问摄像机',
     reloadPage: '重新载入页面'
+  },
+  confirmMessages: {
+    clearDevice: {
+      clearQuestion: '删除该设备的钱包访问权限？',
+      info: "别担心！您可以使用记忆短语或 'ceed' 密钥在本设备或其他设备上重新访问您的钱包。"
+    }
   }
 }
