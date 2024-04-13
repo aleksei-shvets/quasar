@@ -57,6 +57,7 @@ const isShowModalTx = ref(false)
 const isShowModalError = ref(false)
 const isShowRunCamSpinner = ref(false)
 const paused = ref(false)
+const scanImg = ref(null)
 
 const reloadPage = () => {
   isShowModalError.value = false
@@ -283,6 +284,21 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
         </q-section>
       </div>
     </q-section>
+    <q-file filled bottom-slots v-model="scanImg" label="Label" counter max-files="1"
+      style="max-width: 300px; margin: 0 auto;">
+
+      <template v-slot:hint>
+        Сканировать фото
+      </template>
+
+      <template v-slot:append>
+        <q-icon name="close" v-if="scanImg" @click.stop.prevent="scanImg = null" class="cursor-pointer" />
+      </template>
+
+      <template v-slot:after v-if="scanImg">
+        <q-icon size="lg" name="qr_code_scanner" />
+      </template>
+    </q-file>
     <div v-if="error === 'NotAllowedError'" class="row q-pa-md q-flex justify-around items-center"
       style="max-width: 90%; margin: 0 auto;">
       <q-chip class="q-mb-md" clickable @click="reloadPage" size="md">
