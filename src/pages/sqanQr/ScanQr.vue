@@ -5,6 +5,7 @@ import { QrcodeStream } from 'vue-qrcode-reader'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import { BarcodeDetector } from 'barcode-detector/pure'
 import modalTx from './modalTx.vue'
 import modalErrorMessage from './modalErrorMessage.vue'
 
@@ -79,6 +80,17 @@ const onDetect = async (detectedData) => {
   } else {
     // Обработка случая, когда detectedData пуст или не массив
     console.error('Detected data is empty or not an array:', detectedData)
+  }
+}
+
+const processFile = async () => {
+  if (scanImg.value) {
+    const barcodeDetector = new BarcodeDetector({
+      formats: ['qr_code']
+    })
+
+    const detectedImgCode = await barcodeDetector.detect(scanImg.value)
+    onDetect(detectedImgCode)
   }
 }
 
@@ -185,6 +197,7 @@ const confirmClick = () => {
   detectedCode.value = false
   isShowModalTx.value = false
   paused.value = false
+  scanImg.value = null
   succesNotification()
 }
 
@@ -243,12 +256,6 @@ const trackFunctionOptions = [
 ]
 const trackFunctionSelected = ref(trackFunctionOptions[1])
 
-/* const getLabelQFile = () => {
-  if (scanImg.value) {
-    return null
-  }
-  return '+'
-} */
 </script>
 
 <style scoped>
@@ -291,7 +298,8 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
         </q-section>
       </div>
     </q-section>
-    <q-file filled bottom-slots v-model="scanImg" counter max-files="1" style="max-width: 300px; margin: 0 auto;">
+    <q-file @detect="onDetect" filled bottom-slots v-model="scanImg" counter max-files="1"
+      style="max-width: 300px; margin: 0 auto;">
 
       <template v-slot:prepend>
         <q-icon v-if="!scanImg" name="add_photo_alternate" class="cursor-pointer" />
@@ -306,10 +314,10 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
       </template>
 
       <template v-slot:after v-if="scanImg">
-        <q-icon size="lg" name="qr_code_scanner" />
+        <q-icon size="lg" name="qr_code_scanner" @click="processFile" />
       </template>
     </q-file>
-    <div v-if="scanImg">{{ JSON.stringify(scanImg) }}</div>
+
     <div v-if="error === 'NotAllowedError'" class="row q-pa-md q-flex justify-around items-center"
       style="max-width: 90%; margin: 0 auto;">
       <q-chip class="q-mb-md" clickable @click="reloadPage" size="md">
