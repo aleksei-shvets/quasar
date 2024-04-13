@@ -203,7 +203,8 @@ const copyPwd = (txt) => {
 .public-key {
   overflow-wrap: anywhere;
   text-align: start;
-  background-color: #f2f2f2;
+  background-color: #281341;
+  color: #c9c5cf;
 }
 
 .hint {
