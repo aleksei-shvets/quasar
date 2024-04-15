@@ -57,7 +57,7 @@ const clear = () => {
         <q-select class="q-ml-sm" v-model="$i18n.locale" :options=$i18n.availableLocales />
       </q-toolbar>
     </q-header>
-    <q-footer v-if="!user.sk.length > 0">
+    <q-footer v-if="!user.crypt">
       <q-toolbar class="flex flex-center q-pa-sm justify-evenly">
         <q-item class="git" lickable tag="a" href="https://github.com/yatledger">
           <q-item-section avatar><q-icon name="code" /></q-item-section>

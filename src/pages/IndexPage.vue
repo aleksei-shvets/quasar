@@ -161,41 +161,6 @@ window.addEventListener('resize', function () {
       </div>
     </div>
   </q-page>
-  <q-page v-if="user.crypt" class="flex flex-center">
-    <div class="collumn text-center">
-      <div v-if="user.sk.length > 0" style="width: 75vw">
-        <h1 class="h-balance">{{ balance }} ѣ</h1>
-        <div class="row flex-center q-gutter-sm" style="width: 100%">
-          <!-- <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
-              <q-btn push color="primary" size="l" to="/spend" label="Потратить" /> -->
-          <q-btn push color="primary" size="l" to="/earn" :label="$t('get')" class="q-mb-md q-mb-sm" />
-          <q-btn push color="primary" size="l" to="/send" :label="$t('send')" class="q-mb-md q-mb-sm" />
-        </div>
-        <div class="row flex-center" style="width: 100%">
-          <figure class="qrcode">
-            <vue-qrcode :value="userLink" :options="{
-    width: 250,
-    color: {
-      dark: '#3e007a',
-      light: '#ffffff',
-    },
-  }">
-            </vue-qrcode>
-            <img class="qrcode__image" src="/icons/icon-qr.png" />
-          </figure>
-        </div>
-        <div class="row flex-center q-gutter-sm" style="width: 100%">
-          <!--  <q-btn round color="primary" icon="refresh" size="l" />
-          <q-btn round color="primary" icon="content_copy" size="l" />
-          <q-btn round color="primary" icon="chat_bubble" size="l" />
-        -->
-        </div>
-      </div>
-      <!-- <div v-else>
-        <img :alt="$t('title')" src="/logo.svg" class="logo" />
-      </div> -->
-    </div>
-  </q-page>
 </template>
 <style scoped lang="scss">
 .mainContent {
