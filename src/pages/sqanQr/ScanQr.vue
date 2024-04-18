@@ -5,6 +5,7 @@ import { QrcodeStream } from 'vue-qrcode-reader'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import { BarcodeDetector } from 'barcode-detector/pure'
 import modalTx from './modalTx.vue'
 import modalErrorMessage from './modalErrorMessage.vue'
 
@@ -57,6 +58,7 @@ const isShowModalTx = ref(false)
 const isShowModalError = ref(false)
 const isShowRunCamSpinner = ref(false)
 const paused = ref(false)
+const scanImg = ref(null)
 
 const reloadPage = () => {
   isShowModalError.value = false
@@ -78,6 +80,17 @@ const onDetect = async (detectedData) => {
   } else {
     // Обработка случая, когда detectedData пуст или не массив
     console.error('Detected data is empty or not an array:', detectedData)
+  }
+}
+
+const processFile = async () => {
+  if (scanImg.value) {
+    const barcodeDetector = new BarcodeDetector({
+      formats: ['qr_code']
+    })
+
+    const detectedImgCode = await barcodeDetector.detect(scanImg.value)
+    onDetect(detectedImgCode)
   }
 }
 
@@ -184,6 +197,7 @@ const confirmClick = () => {
   detectedCode.value = false
   isShowModalTx.value = false
   paused.value = false
+  scanImg.value = null
   succesNotification()
 }
 
@@ -241,6 +255,7 @@ const trackFunctionOptions = [
   { text: 'bounding box', value: paintBoundingBox }
 ]
 const trackFunctionSelected = ref(trackFunctionOptions[1])
+
 </script>
 
 <style scoped>
@@ -283,6 +298,26 @@ const trackFunctionSelected = ref(trackFunctionOptions[1])
         </q-section>
       </div>
     </q-section>
+    <q-file @detect="onDetect" filled bottom-slots v-model="scanImg" counter max-files="1"
+      style="max-width: 300px; margin: 0 auto;">
+
+      <template v-slot:prepend>
+        <q-icon v-if="!scanImg" name="add_photo_alternate" class="cursor-pointer" />
+      </template>
+
+      <template v-slot:hint>
+        Сканировать фото
+      </template>
+
+      <template v-slot:append>
+        <q-icon name="close" v-if="scanImg" @click.stop.prevent="scanImg = null" class="cursor-pointer" />
+      </template>
+
+      <template v-slot:after v-if="scanImg">
+        <q-icon size="lg" name="qr_code_scanner" @click="processFile" />
+      </template>
+    </q-file>
+
     <div v-if="error === 'NotAllowedError'" class="row q-pa-md q-flex justify-around items-center"
       style="max-width: 90%; margin: 0 auto;">
       <q-chip class="q-mb-md" clickable @click="reloadPage" size="md">
