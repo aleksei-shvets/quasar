@@ -2,5 +2,6 @@
 /src-capacitor
 /src-cordova
 /.quasar
+/src/boot
 /node_modules
 .eslintrc.js
