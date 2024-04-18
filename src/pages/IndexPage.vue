@@ -1,6 +1,6 @@
 <script setup>
 import signin from 'components/SignIn.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { userStore } from 'stores/user'
 import VueQrcode from '@chenfengyuan/vue-qrcode'
 
@@ -9,7 +9,7 @@ const enter = ref(true)
 const balance = ref(0)
 const userLink = ref('yat.li/user/' + user.pk)
 
-window.addEventListener('resize', function () {
+onMounted(() => {
   const screenWidth = window.innerWidth
   let scaleFactor = 1 + (screenWidth / 500)
   scaleFactor = screenWidth < 668 ? scaleFactor / 1.2 : scaleFactor * 1.2
@@ -18,15 +18,15 @@ window.addEventListener('resize', function () {
 
   const styleSheet = document.styleSheets[0]
   styleSheet.insertRule(`
-  @keyframes rotateAnimation {
-    from {
-      transform: translate(-50%, -50%) scale(${scaleFactor}) rotate(0deg);
-    }
-    to {
-      transform: translate(-50%, -50%) scale(${scaleFactor}) rotate(360deg);
-    }
-  }
-`, styleSheet.cssRules.length)
+      @keyframes rotateAnimation {
+        from {
+          transform: translate(-50%, -50%) scale(${scaleFactor}) rotate(0deg)
+        }
+        to {
+          transform: translate(-50%, -50%) scale(${scaleFactor}) rotate(360deg)
+        }
+      }
+    `, styleSheet.cssRules.length)
 })
 </script>
 
@@ -159,41 +159,6 @@ window.addEventListener('resize', function () {
         -->
         </div>
       </div>
-    </div>
-  </q-page>
-  <q-page v-if="user.crypt" class="flex flex-center">
-    <div class="collumn text-center">
-      <div v-if="user.sk.length > 0" style="width: 75vw">
-        <h1 class="h-balance">{{ balance }} ѣ</h1>
-        <div class="row flex-center q-gutter-sm" style="width: 100%">
-          <!-- <q-btn push color="primary" size="l" to="/ask" label="Попросить" />
-              <q-btn push color="primary" size="l" to="/spend" label="Потратить" /> -->
-          <q-btn push color="primary" size="l" to="/earn" :label="$t('get')" class="q-mb-md q-mb-sm" />
-          <q-btn push color="primary" size="l" to="/send" :label="$t('send')" class="q-mb-md q-mb-sm" />
-        </div>
-        <div class="row flex-center" style="width: 100%">
-          <figure class="qrcode">
-            <vue-qrcode :value="userLink" :options="{
-    width: 250,
-    color: {
-      dark: '#3e007a',
-      light: '#ffffff',
-    },
-  }">
-            </vue-qrcode>
-            <img class="qrcode__image" src="/icons/icon-qr.png" />
-          </figure>
-        </div>
-        <div class="row flex-center q-gutter-sm" style="width: 100%">
-          <!--  <q-btn round color="primary" icon="refresh" size="l" />
-          <q-btn round color="primary" icon="content_copy" size="l" />
-          <q-btn round color="primary" icon="chat_bubble" size="l" />
-        -->
-        </div>
-      </div>
-      <!-- <div v-else>
-        <img :alt="$t('title')" src="/logo.svg" class="logo" />
-      </div> -->
     </div>
   </q-page>
 </template>
